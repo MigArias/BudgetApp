@@ -1,0 +1,1 @@
+{'food': 110, 'enterta': 220, 'clothes': 330}
