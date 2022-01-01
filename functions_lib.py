@@ -24,8 +24,13 @@ def error_hndl(products_list):
     for x in products_list:
         if x.amount < 0:
             print(">>>>>>There is NOT enough funds for the selected transaction.\nExiting>>>>>>>")
-            
-            
+        else: 
+            return True
+
+
+
+
+      
 
 
 

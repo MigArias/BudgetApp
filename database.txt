@@ -1,1 +1,1 @@
-{'food': 110, 'enterta': 220, 'clothes': 330}
+{"food": 5100, "entertainment": 0, "clothes": 0}
