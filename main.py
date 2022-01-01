@@ -1,10 +1,14 @@
 import functions_lib as fnc
 import ast
 import time
+import json
 
+from os.path import dirname, join
+current_dir = dirname(__file__)
+file_path = join(current_dir, "./database.txt")
+with open(file_path, 'r') as data:
+  dictionary = ast.literal_eval(data.read())
 
-with open(".\database.txt", "r") as data:
-    dictionary = ast.literal_eval(data.read())
 
 
 class Service:
@@ -27,7 +31,7 @@ clothes = Product(3)
 
 #saving the current amount saved on file and making a list
 food.amount = dictionary.get("food")
-enter.amount = dictionary.get("enter")
+enter.amount = dictionary.get("entertainment")
 clothes.amount = dictionary.get("clothes")
 products_list = [food, enter, clothes]
 
@@ -37,10 +41,10 @@ sv_deposit = Service(1)
 sv_withdraw = Service(2)
 sv_transfer = Service(3)
 sv_balance = Service(4)
-sv_exit = Service(5)
 
 
-service_list = [sv_deposit, sv_withdraw, sv_transfer, sv_balance, sv_exit] 
+
+service_list = [sv_deposit, sv_withdraw, sv_transfer, sv_balance] 
 def service_chsn(select_srv):    
     for x in service_list: 
         if (x.serv_code) == select_srv:
@@ -88,6 +92,19 @@ def products_chsn(cat_in, cat_out, amnt_in, amnt_out):
         else: 
             continue
         print(f'new amount: {x.amount} category: {x.cat_code}')
+        fnc.error_hndl(products_list)
+        if fnc.error_hndl(products_list) == True:
+            write_file(dictionary)
+
+
+def write_file(dictionary):
+    # dictionary
+    dictionary['food']= food.amount
+    dictionary['entertainment'] = enter.amount
+    dictionary['clothes'] =clothes.amount
+    with open('./database.txt', "w") as myfile:
+        myfile.write(json.dumps(dictionary))  
+
 
 def balance():
                 print ('\n\nThis is your current balance by category:' )
@@ -101,12 +118,15 @@ def balance():
                     time.sleep(3) 
                     exit()  
              
-with open("database.txt", "w") as log:
+   
 
 
 main_menu()
-fnc.error_hndl(products_list)
 
+
+
+
+ 
 
 
 
